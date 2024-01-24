@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dtdpmjhkr0wd3"]
+
+[ext_resource type="Texture2D" uid="uid://bbddaqq2sfsri" path="res://data/textures/Arms_FPS_Arms_White_Tattooed.png" id="1_r4new"]
+
+[resource]
+resource_name = "Arm_Right"
+cull_mode = 2
+albedo_texture = ExtResource("1_r4new")
+roughness = 0.91
+ao_enabled = true
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.97
+subsurf_scatter_skin_mode = true
+texture_filter = 2

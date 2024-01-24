@@ -1,0 +1,152 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsxjan5rgm2hr"]
+
+[ext_resource type="Texture2D" uid="uid://uc2lnlu2clgm" path="res://Objects/sky.exr" id="1_fax3b"]
+[ext_resource type="PackedScene" uid="uid://dx5184jxv6hi3" path="res://Objects/Player.tscn" id="2_nn2hk"]
+[ext_resource type="Material" uid="uid://cikensbxil3xl" path="res://data/materials/standard_dev_texture2.tres" id="4_3gngk"]
+[ext_resource type="Material" uid="uid://diphr80v3oo2e" path="res://data/materials/standard_dev_texture.tres" id="4_rav7s"]
+[ext_resource type="PackedScene" uid="uid://dvbrb1clnbxa3" path="res://Objects/imp.tscn" id="5_6ypgk"]
+[ext_resource type="Material" uid="uid://27je4hehimgv" path="res://data/materials/standard_dev_texture3.tres" id="5_io2j5"]
+[ext_resource type="Shader" path="res://data/materials/new_shader.gdshader" id="7_h2lml"]
+[ext_resource type="Texture2D" uid="uid://cjfwfpdcwpsbj" path="res://data/textures/crosshairs/crosshair005.png" id="8_r6nm5"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ywoa6"]
+panorama = ExtResource("1_fax3b")
+
+[sub_resource type="Sky" id="Sky_5uldh"]
+sky_material = SubResource("PanoramaSkyMaterial_ywoa6")
+
+[sub_resource type="Environment" id="Environment_j1rbs"]
+background_mode = 2
+sky = SubResource("Sky_5uldh")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.65
+tonemap_mode = 3
+tonemap_exposure = 0.33
+ssr_enabled = true
+ssao_enabled = true
+sdfgi_min_cell_size = 1.95312
+sdfgi_cascade0_distance = 124.999
+sdfgi_max_distance = 1999.99
+glow_enabled = true
+glow_bloom = 0.14
+adjustment_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xf6y4"]
+shader = ExtResource("7_h2lml")
+shader_parameter/pixelSize = 4
+
+[node name="Scene1" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_j1rbs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.317073, 0.948401, 0, -0.948401, 0.317073, 0, 5.01097, 0)
+shadow_enabled = true
+
+[node name="test_scene" type="Node3D" parent="."]
+
+[node name="CSG" type="Node3D" parent="test_scene"]
+transform = Transform3D(1.75, 0, 0, 0, 1.75, 0, 0, 0, 1.75, 0, 2, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="test_scene/CSG"]
+material_override = ExtResource("4_3gngk")
+use_collision = true
+size = Vector3(10, 6, 13)
+material = ExtResource("5_io2j5")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="test_scene/CSG/CSGBox3D"]
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.00985719, 1, 6.09712e-05)
+operation = 2
+use_collision = true
+size = Vector3(6.86908, 4, 11.4095)
+material = ExtResource("5_io2j5")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="test_scene/CSG"]
+transform = Transform3D(1, -0.000497116, 1.73864e-05, 0.000497129, 1, -0.00080052, -1.70125e-05, 0.000800527, 1, 3.4999, -0.193486, 0.572803)
+material_override = ExtResource("4_rav7s")
+use_collision = true
+size = Vector3(2, 0.413147, 2.27515)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="test_scene/CSG"]
+transform = Transform3D(1, -0.000497116, 1.73864e-05, 0.000497129, 1, -0.00080052, -1.70125e-05, 0.000800527, 1, 3.50017, -0.829564, -1.73567)
+material_override = ExtResource("4_rav7s")
+use_collision = true
+size = Vector3(2, 0.585815, 1)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="test_scene/CSG"]
+transform = Transform3D(1, -0.000497116, 1.73864e-05, 0.000497129, 1, -0.00080052, -1.70125e-05, 0.000800527, 1, -0.00147728, 2.63861, 2.76717)
+material_override = ExtResource("4_rav7s")
+use_collision = true
+size = Vector3(7, 0.732849, 6)
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="test_scene/CSG/CSGBox3D5"]
+transform = Transform3D(0.571428, -1.37552e-08, 3.49123e-10, -1.15552e-11, -2.49129e-08, 0.571428, -3.63798e-12, -0.571428, -2.40107e-08, -0.0337619, -0.571428, 1.57143)
+light_color = Color(0.858824, 0.996078, 0.917647, 1)
+light_energy = 7.607
+light_indirect_energy = 4.165
+light_volumetric_fog_energy = 5.466
+light_size = 0.665
+light_specular = 8.103
+spot_range = 8.0
+spot_angle = 13.7513
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="test_scene/CSG/CSGBox3D5/SpotLight3D2"]
+transform = Transform3D(1, -5.65805e-11, 0, 0, -4.19677e-08, -1, 2.34301e-12, 1, -4.20259e-08, 0, 0, 0)
+light_color = Color(0.733333, 1, 0.827451, 1)
+light_energy = 4.593
+light_indirect_energy = 1.435
+omni_range = 2.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="test_scene/CSG/CSGBox3D5"]
+transform = Transform3D(0.571428, 3.48715e-10, 1.37552e-08, -1.15552e-11, 0.571428, 9.02219e-10, -3.63798e-12, 0, 0.571428, 2.85714, -3.3493, -2.28571)
+light_color = Color(0, 0.690196, 0.403922, 1)
+light_energy = 4.593
+light_indirect_energy = 1.435
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="test_scene/CSG"]
+transform = Transform3D(1, -0.000497116, 1.73864e-05, 0.000497129, 1, -0.00080052, -1.70125e-05, 0.000800527, 1, 3.49995, -0.195678, 3.31065)
+material_override = ExtResource("4_rav7s")
+use_collision = true
+size = Vector3(2, 0.413147, 2.27515)
+
+[node name="imp" parent="." instance=ExtResource("5_6ypgk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.723411, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="Croshair" type="TextureRect" parent="Control"]
+z_index = 1315
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(36, 36)
+texture = ExtResource("8_r6nm5")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Control"]
+material = SubResource("ShaderMaterial_xf6y4")
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="Control/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="Player" parent="Control/SubViewportContainer/SubViewport" instance=ExtResource("2_nn2hk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)

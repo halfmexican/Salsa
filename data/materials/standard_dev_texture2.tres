@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cikensbxil3xl"]
+
+[ext_resource type="Texture2D" uid="uid://b6biqmmb0bpgl" path="res://data/textures/prototype-textures/PNG/Orange/texture_01.png" id="1_tn7pf"]
+
+[resource]
+albedo_texture = ExtResource("1_tn7pf")
+metallic = 0.03
+anisotropy_enabled = true
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 0.870549
+uv1_world_triplanar = true

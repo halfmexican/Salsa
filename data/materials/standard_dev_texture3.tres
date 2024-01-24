@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://27je4hehimgv"]
+
+[ext_resource type="Texture2D" uid="uid://ce8norjvfnkv7" path="res://data/textures/prototype-textures/PNG/Light/texture_04.png" id="1_68pnc"]
+
+[resource]
+albedo_texture = ExtResource("1_68pnc")
+metallic = 0.03
+anisotropy_enabled = true
+uv1_triplanar = true
+uv1_triplanar_sharpness = 1.1487
+uv1_world_triplanar = true

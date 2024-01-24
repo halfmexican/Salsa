@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://bvmi7kxiuvhcn"]
+
+[ext_resource type="PackedScene" uid="uid://dngwkcoyfvqxj" path="res://data/models/Malorian.fbx" id="1_ru3iy"]
+[ext_resource type="Material" uid="uid://bpi1jdngvsgdo" path="res://data/materials/Malorian.tres" id="2_d7jer"]
+[ext_resource type="Material" uid="uid://tvdpv42ehjnk" path="res://data/materials/Malorian_Ammo.tres" id="3_tarbv"]
+[ext_resource type="Texture2D" uid="uid://cdtxv7tx7yrn2" path="res://data/textures/prototype-textures/PNG/Dark/texture_01.png" id="4_4gnbv"]
+
+[node name="malorian" instance=ExtResource("1_ru3iy")]
+
+[node name="RootNode" parent="." index="0"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="Malorian" parent="RootNode" index="0"]
+surface_material_override/0 = ExtResource("2_d7jer")
+
+[node name="Malorian_001" parent="RootNode" index="1"]
+surface_material_override/0 = ExtResource("3_tarbv")
+
+[node name="Sprite3D" type="Sprite3D" parent="RootNode" index="2"]
+transform = Transform3D(-4.19629e-09, -0.0707107, 0.707107, 0, 0.0707107, 0.707107, -0.096, 3.09086e-09, -3.09086e-08, 0.0395875, 0.0306303, 0.882097)
+pixel_size = 0.002
+texture = ExtResource("4_4gnbv")
