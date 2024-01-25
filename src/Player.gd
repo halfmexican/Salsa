@@ -129,7 +129,7 @@ func weapon_sway(delta):
 	const MAX_SWAY_ROT_X = deg_to_rad(10)  # Max sway for Y-axis in radians
 
 	# Interpolate mouse input towards zwero for smooth stopping
-	mouse_input = lerp(mouse_input, Vector2.ZERO, 10 * delta)
+	mouse_input = lerp(mouse_input, Vector2.ZERO, delta)
 	# Calculate target rotation based on mouse input
 	var target_rot_x = clamp(ORIGINAL_ROT_X + mouse_input.y * weapon_rotation_amount, ORIGINAL_ROT_X - MAX_SWAY_ROT_Z, ORIGINAL_ROT_X + MAX_SWAY_ROT_X)
 	var target_rot_z = clamp(ORIGINAL_ROT_Z + mouse_input.x * weapon_rotation_amount, ORIGINAL_ROT_Z - MAX_SWAY_ROT_X, ORIGINAL_ROT_Z+ MAX_SWAY_ROT_Z)

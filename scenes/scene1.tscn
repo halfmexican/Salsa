@@ -23,7 +23,6 @@ ambient_light_sky_contribution = 0.65
 tonemap_mode = 3
 tonemap_exposure = 0.33
 ssr_enabled = true
-ssao_enabled = true
 sdfgi_min_cell_size = 1.95312
 sdfgi_cascade0_distance = 124.999
 sdfgi_max_distance = 1999.99
