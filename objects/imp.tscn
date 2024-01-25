@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dvbrb1clnbxa3"]
 
 [ext_resource type="Texture2D" uid="uid://du8f4awcghnuk" path="res://data/textures/entities/imp/imp_spritesheet.png" id="1_naaqq"]
-[ext_resource type="Script" path="res://Objects/Imp.gd" id="2_mkwan"]
+[ext_resource type="Script" path="res://src/Imp.gd" id="2_mkwan"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oa8qx"]
 size = Vector3(1, 1.7, 1)

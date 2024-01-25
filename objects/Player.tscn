@@ -1,11 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://dx5184jxv6hi3"]
+[gd_scene load_steps=19 format=3 uid="uid://dx5184jxv6hi3"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1"]
+[ext_resource type="Script" path="res://src/Player.gd" id="1"]
 [ext_resource type="Material" uid="uid://27je4hehimgv" path="res://data/materials/standard_dev_texture3.tres" id="2_5jqoc"]
-[ext_resource type="Script" path="res://Objects/player_camera.gd" id="2_247k6"]
+[ext_resource type="Script" path="res://src/player_camera.gd" id="2_247k6"]
 [ext_resource type="Material" uid="uid://dtdpmjhkr0wd3" path="res://data/materials/Arm_Right.tres" id="5_nmb7o"]
-[ext_resource type="PackedScene" uid="uid://bvmi7kxiuvhcn" path="res://Objects/malorian.tscn" id="6_4q47g"]
+[ext_resource type="PackedScene" uid="uid://bvmi7kxiuvhcn" path="res://objects/malorian.tscn" id="6_4q47g"]
 [ext_resource type="Material" uid="uid://bq6ifx7wg8vid" path="res://data/materials/Arm_Left.tres" id="6_pf1ly"]
+[ext_resource type="Script" path="res://src/gun_sway.gd" id="6_wq6gi"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aa2y2"]
 size = Vector3(0.5, 1.7, 0.5)
@@ -449,13 +450,16 @@ mesh = SubResource("ArrayMesh_lxisx")
 skin = SubResource("Skin_vgfvi")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="head/viewmodel/viewmodel_arms/Skeleton3D"]
-transform = Transform3D(0.982477, -0.00650305, -0.186267, -0.176579, 0.287342, -0.94141, 0.0596443, 0.957805, 0.281158, -0.248333, 0.0493596, 0.877702)
+transform = Transform3D(0.982477, -0.00650306, -0.186267, -0.176579, 0.287342, -0.94141, 0.0596443, 0.957805, 0.281158, -0.248333, 0.0493596, 0.877702)
 bone_name = "Hand.R"
 bone_idx = 3
 override_pose = true
+script = ExtResource("6_wq6gi")
 
 [node name="malorian" parent="head/viewmodel/viewmodel_arms/Skeleton3D/BoneAttachment3D" instance=ExtResource("6_4q47g")]
 transform = Transform3D(1.07577, -0.19782, 0.116647, -0.0694431, 0.252362, 1.0684, -0.218901, -1.05222, 0.234313, 0.0545098, 0.27751, -0.0394913)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="head/viewmodel/viewmodel_arms/Skeleton3D"]
 
 [node name="body" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.687982, 0, 0, 0, 1.63097, 0, 0, 0, 0.732198, 0, -0.102816, 0)

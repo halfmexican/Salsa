@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://bsxjan5rgm2hr"]
 
-[ext_resource type="Texture2D" uid="uid://uc2lnlu2clgm" path="res://Objects/sky.exr" id="1_fax3b"]
-[ext_resource type="PackedScene" uid="uid://dx5184jxv6hi3" path="res://Objects/Player.tscn" id="2_nn2hk"]
+[ext_resource type="Texture2D" uid="uid://uc2lnlu2clgm" path="res://objects/sky.exr" id="1_fax3b"]
+[ext_resource type="PackedScene" uid="uid://dx5184jxv6hi3" path="res://objects/Player.tscn" id="2_nn2hk"]
 [ext_resource type="Material" uid="uid://cikensbxil3xl" path="res://data/materials/standard_dev_texture2.tres" id="4_3gngk"]
 [ext_resource type="Material" uid="uid://diphr80v3oo2e" path="res://data/materials/standard_dev_texture.tres" id="4_rav7s"]
-[ext_resource type="PackedScene" uid="uid://dvbrb1clnbxa3" path="res://Objects/imp.tscn" id="5_6ypgk"]
+[ext_resource type="PackedScene" uid="uid://dvbrb1clnbxa3" path="res://objects/imp.tscn" id="5_6ypgk"]
 [ext_resource type="Material" uid="uid://27je4hehimgv" path="res://data/materials/standard_dev_texture3.tres" id="5_io2j5"]
 [ext_resource type="Shader" path="res://data/materials/new_shader.gdshader" id="7_h2lml"]
 [ext_resource type="Texture2D" uid="uid://cjfwfpdcwpsbj" path="res://data/textures/crosshairs/crosshair005.png" id="8_r6nm5"]

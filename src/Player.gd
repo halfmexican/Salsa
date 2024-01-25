@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 # Movement
-@onready var body = $CollisionShape
+@onready var body = $collision_shape
 const MAX_VELOCITY_AIR = 0.6
 const MAX_VELOCITY_GROUND = 6.0
 const MAX_ACCELERATION = 10 * MAX_VELOCITY_GROUND
@@ -18,18 +18,24 @@ var walking = false
 var crouching = false
 
 # Headbob
-const BOB_FREQ = 2.0
-const BOB_AMP = 0.04
-var t_bob = 0.0
+@export var BOB_FREQ = 2.0
+@export var BOB_AMP = 0.04
+@export var t_bob = 0.0
 
+# Weapon Sway
+var mouse_input : Vector2
+@onready var hand = $head/viewmodel/viewmodel_arms/Skeleton3D/BoneAttachment3D
+@export var weapon_sway_amount : float = 0.2
+@export var weapon_rotation_amount : float = 0.6
+@export var invert_weapon_sway : bool = false
 # Camera
 var sensitivity = 0.05
-@onready var camera = $Head/Camera
+@onready var camera = $head/player_camera
 const MAX_TILT_ANGLE = 0.02
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	$Head/head_ray.enabled = true
+	$head/head_ray.enabled = true
 	
 func _input(event):
 	# Camera rotation
@@ -37,17 +43,19 @@ func _input(event):
 		_handle_camera_rotation(event)
 	
 func _handle_camera_rotation(event: InputEvent):
+	mouse_input = event.relative
 	# Rotate the camera based on the mouse movement
 	rotate_y(deg_to_rad(-event.relative.x * sensitivity))
-	$Head.rotate_x(deg_to_rad(-event.relative.y * sensitivity))
+	$head.rotate_x(deg_to_rad(-event.relative.y * sensitivity))
 	
 	# Stop the head from rotating to far up or down
-	$Head.rotation.x = clamp($Head.rotation.x, deg_to_rad(-80), deg_to_rad(90))
+	$head.rotation.x = clamp($head.rotation.x, deg_to_rad(-80), deg_to_rad(90))
 	
 func _physics_process(delta):
 	process_input()
 	process_movement(delta)
 	process_animation(delta)
+	weapon_sway(delta)
 	
 func process_input():
 	direction = Vector3()
@@ -102,7 +110,7 @@ func process_movement(delta):
 	t_bob += delta * velocity.length()
 	camera.transform.origin = _headbob(t_bob) * float(is_on_floor())
 	
-	# Move the player once velocity has been calculated
+	# Move the player once velocity has been calculatedif invert_weapon_sway else 1
 	move_and_slide()
 
 func _headbob(time) -> Vector3:
@@ -110,12 +118,36 @@ func _headbob(time) -> Vector3:
 	pos.y = sin(time * BOB_FREQ) * BOB_AMP
 	return pos
 
+
+
+func weapon_sway(delta):
+	const ORIGINAL_ROT_X = deg_to_rad(70.3)
+	#const ORIGINAL_ROT_Y = deg_to_rad(-33.5)
+	const ORIGINAL_ROT_Z = deg_to_rad(-31.6)
+	# Define maximum rotation angles (example values)
+	const MAX_SWAY_ROT_Z = deg_to_rad(10)  # Max sway for X-axis in radians
+	const MAX_SWAY_ROT_X = deg_to_rad(10)  # Max sway for Y-axis in radians
+
+	# Interpolate mouse input towards zwero for smooth stopping
+	mouse_input = lerp(mouse_input, Vector2.ZERO, 10 * delta)
+	# Calculate target rotation based on mouse input
+	var target_rot_x = clamp(ORIGINAL_ROT_X + mouse_input.y * weapon_rotation_amount, ORIGINAL_ROT_X - MAX_SWAY_ROT_Z, ORIGINAL_ROT_X + MAX_SWAY_ROT_X)
+	var target_rot_z = clamp(ORIGINAL_ROT_Z + mouse_input.x * weapon_rotation_amount, ORIGINAL_ROT_Z - MAX_SWAY_ROT_X, ORIGINAL_ROT_Z+ MAX_SWAY_ROT_Z)
+	# Lerp current rotation towards target rotation
+	hand.rotation.x = lerp(hand.rotation.x, target_rot_x, 10 * delta)
+	hand.rotation.z = lerp(hand.rotation.z, target_rot_z, 10 * delta)
+	# Assuming Z rotation should also return to its original position
+	hand.rotation.x = lerp(hand.rotation.x, ORIGINAL_ROT_X, 10 * delta)
+	hand.rotation.z = lerp(hand.rotation.z, ORIGINAL_ROT_Z, 10 * delta)
+
+
+	
 func is_moving ():
 	return direction.length() > 0
 
 func is_head_colliding():
 	# Check if the RayCast node is colliding
-	return $Head/head_ray.is_colliding()
+	return $head/head_ray.is_colliding()
 
 func _tilt_camera_based_on_input():
 	var tilt = 0.0
@@ -128,22 +160,22 @@ func _tilt_camera_based_on_input():
 		tilt = 0.0
 
 	# Apply the tilt to the camera's rotation
-	$Head/Camera.rotation.z = lerp($Head/Camera.rotation.z, tilt, 0.2) 
+	$head/player_camera.rotation.z = lerp($head/player_camera.rotation.z, tilt, 0.2) 
 
 func process_animation(delta):
 	_tilt_camera_based_on_input()
 	# var is_actually_moving = is_moving() and is_on_floor()
-	var target_head_position = $Head.position.y
+	var target_head_position = $head.position.y
 	# If crouching, we lerp the head's position downward.
 	if crouching:
 		target_head_position = 0.4 # Adjust this value to set how low the head should go.
 		# Lerp the head's Y position to crouch.
-		$Head.position.y = lerp($Head.position.y, target_head_position, 10 * delta)
+		$head.position.y = lerp($head.position.y, target_head_position, 10 * delta)
 		body.scale.y = lerp(body.scale.y, 0.50, 10 * delta)
 	else:
 		# Reset the head's position if not crouching.
 		target_head_position = 0.6 # Original Y position of the head.
-		$Head.position.y = lerp($Head.position.y, target_head_position, 10 * delta)
+		$head.position.y = lerp($head.position.y, target_head_position, 10 * delta)
 		
 		# Reset the body scale if not crouching.
 		body.scale.y = lerp(body.scale.y, 1.0, 10 * delta)
